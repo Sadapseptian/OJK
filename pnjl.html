@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pengajuan</title>
+
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        background:#111;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        margin:0;
+    }
+
+    .container{
+        background:#1e1e1e;
+        padding:25px;
+        border-radius:10px;
+        width:400px;
+        box-shadow:0 0 10px rgba(0,0,0,.5);
+    }
+
+    h2{
+        text-align:center;
+        margin-bottom:15px;
+    }
+
+    input, select, textarea{
+        width:100%;
+        padding:8px;
+        margin-top:5px;
+        margin-bottom:12px;
+        border-radius:5px;
+        border:none;
+    }
+
+    button{
+        width:100%;
+        padding:10px;
+        background:#00bfff;
+        border:none;
+        border-radius:5px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#0094c7;
+    }
+
+    /* === POPUP === */
+    .overlay{
+        position: fixed;
+        top:0; left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.8);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        animation: fade .3s;
+    }
+
+    @keyframes fade{
+        from{opacity:0;}
+        to{opacity:1;}
+    }
+
+    .popup{
+        background:#1e1e1e;
+        padding:25px;
+        border-radius:10px;
+        text-align:center;
+        width:350px;
+        animation: zoom .3s;
+        box-shadow:0 0 15px rgba(0,0,0,.7);
+    }
+
+    @keyframes zoom{
+        from{transform:scale(0.4);}
+        to{transform:scale(1);}
+    }
+
+    .check{
+        font-size:55px;
+        color:#00ff88;
+        margin-bottom:10px;
+    }
+
+    .btn-ok{
+        margin-top:12px;
+        padding:8px 15px;
+        border:none;
+        border-radius:5px;
+        background:#00bfff;
+        cursor:pointer;
+        font-weight:bold;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Silakan masukan data untuk melunasi tagihan</h2>
+
+    <form id="formPinjaman">
+        <label>Nama Lengkap</label>
+        <input type="text" required>
+
+        <label>Alamat Sesuai Terdaftar</label>
+        <textarea rows="3" required></textarea>
+
+        <label>Nomor HP</label>
+        <input type="tel" required>
+
+        <label>Email</label>
+        <input type="email" required>
+
+        <label>Jenis Kelamin</label>
+        <select required>
+            <option value="">Pilih Jenis Kelamin</option>
+            <option>Laki-laki</option>
+            <option>Perempuan</option>
+        </select>
+
+        <label>Jumlah Total Pinjaman</label>
+        <input type="number" required>
+
+        <label>Nama Aplikasi Pinjaman</label>
+        <input type="text" id="aplikasi" required>
+
+        <button type="submit">Kirim Data</button>
+    </form>
+</div>
+
+<!-- POPUP -->
+<div class="overlay" id="popupBox">
+    <div class="popup">
+        <div class="check">✔</div>
+        <p id="pesan"></p>
+        <button class="btn-ok" onclick="tutup()">OK</button>
+    </div>
+</div>
+
+<script>
+document.getElementById("formPinjaman").addEventListener("submit", function(e){
+    e.preventDefault();
+    let aplikasi = document.getElementById("aplikasi").value;
+
+    let pesan = "Data peminjaman anda di aplikasi " + aplikasi +
+    " telah dilunasi. Kami akan mengirim pesan, silakan lakukan konfirmasi.";
+
+    document.getElementById("pesan").innerText = pesan;
+    document.getElementById("popupBox").style.display = "flex";
+});
+
+function tutup(){
+    document.getElementById("popupBox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
